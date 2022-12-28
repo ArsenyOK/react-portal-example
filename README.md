@@ -1,70 +1,51 @@
-# Getting Started with Create React App
+# React Portal
+For my experience I rarely use React Portal in my work but sometimes it's really useful thing. `React portal` helps you not change architecture of App and just create `react portal`. 
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+## Where is the Portal used?
+Portals are used in situations where it is necessary for child components to visually break out of the parent container. Typical examples of using portals:
 
-## Available Scripts
+* Modal dialog boxes.
+* Pop-up hints.
+* Pop-up business cards.
+* Loaders.
 
-In the project directory, you can run:
+## How to create React Portal?
 
-### `npm start`
+The portal is created with `ReactDOM.createPortal(child, container)`. Here child is the React element, fragment, or string, and container is the location or `DOM` node where the portal should be added.
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+*Example:*
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+```high-light
+import React from "react";
+import ReactDOM from "react-dom";
+import ModalItem from "./Modal";
 
-### `npm test`
+const ModalPortal = ({ isOpen, toggleOpen }) => {
+  if (!isOpen) {
+    return null;
+  }
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+  return ReactDOM.createPortal(
+    <ModalItem toggleOpen={toggleOpen} />,
+    document.body
+  );
+};
 
-### `npm run build`
+export default ModalPortal;
+```
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+*View:*
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+![ReactPortal](https://user-images.githubusercontent.com/43606985/209804568-d7c40828-cd55-487b-b10d-a536fa690d90.PNG)
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+## What's important when using portals
 
-### `npm run eject`
+* There are a few things to keep in mind when dealing with portals in React. These behaviors are not immediately noticeable if they are not familiar to you. So let's talk a little about them too.
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+* The bubbling event will work as usual, propagating events to ancestors in the React tree, regardless of the location of the portal node in the DOM.
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+* React controls portal nodes and its life cycle when rendering child elements using these portals.
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+* Portals only affect the DOM structure for HTML and do not affect the React component tree.
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+* HTML mount point predefined: When using portals, you must define an HTML DOM element as the mount point for the portal component.

@@ -1,0 +1,19 @@
+.modal {
+  background: rgba(34, 20, 20, 0.781);
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.content-model {
+  width: 300px;
+  height: 200px;
+  background: #fff;
+  padding: 10px;
+  color: #000;
+}
